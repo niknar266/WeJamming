@@ -1,24 +1,32 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour
 {
+	[SerializeField]
+	float
+		currentSpeed = 0.0f, currentDistance = 0.0f, speedIncement = 0.0f, speedDecrement = 0.0f, topSpeed = 0.0f;
+	public
+	Slider
+		powerSlider, distanceSlider;
+	string lastPressed = "";
 
-    float currentSpeed = 0;
-    float maxIdealSpeed = 80.0f;
-    float minIdealSpeed = 60.0f;
-    float topSpeed = 100.0f;
-
-	// Use this for initialization
-	void Start () 
-    {
-	
-
+	void Update ()
+	{
+		currentSpeed = Mathf.Clamp (currentSpeed - (speedDecrement * Time.deltaTime), 0, topSpeed);
+		distanceSlider.value += (currentSpeed / topSpeed) / 100;
+		powerSlider.value = (currentSpeed / topSpeed);
 	}
-	
-	// Update is called once per frame
-	void Update () 
-    {
-	
+
+	public void RunningButton (string _buttonName)
+	{
+		if (lastPressed != _buttonName) {
+			currentSpeed = Mathf.Clamp (currentSpeed + speedIncement, 0, topSpeed);
+			Debug.Log ("Step");
+		} else {
+			Debug.Log ("Missed");
+		}
+		lastPressed = _buttonName;
 	}
 }
