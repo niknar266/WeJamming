@@ -7,6 +7,12 @@ public class Player : MonoBehaviour
 	[SerializeField]
 	float
 		currentSpeed = 0.0f, currentDistance = 0.0f, speedIncement = 0.0f, speedDecrement = 0.0f, topSpeed = 0.0f;
+	[SerializeField]
+	GameController
+		cont;
+	[SerializeField]
+	int
+		playerNumber = 0;
 	public
 	Slider
 		powerSlider, distanceSlider;
@@ -28,5 +34,10 @@ public class Player : MonoBehaviour
 			Debug.Log ("Missed");
 		}
 		lastPressed = _buttonName;
+	}
+
+	public void HitKnight ()
+	{
+		cont.PlayerHitKnight (playerNumber);
 	}
 }
